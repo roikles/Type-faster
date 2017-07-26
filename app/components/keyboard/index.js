@@ -14,7 +14,7 @@ class Keyboard extends React.Component {
     handleKeyPress(e) {
         let expectedOrder = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
         let keyPressed = String.fromCharCode(e.keyCode);
-
+        console.log(keyPressed);
         if(keyPressed === expectedOrder[this.state.keyCounter]){
             //only increment if the correct key is hit
             //could eventually add a hard mode 
@@ -35,7 +35,7 @@ class Keyboard extends React.Component {
     componentDidUpdate() {
         if(this.state.keyCounter === 26){
             console.log('Winner!!!!');
-            
+
         }
     }
 
