@@ -10,8 +10,6 @@ class Key extends React.Component {
         this.state = { 
             active: false
         };
-        // Bind this to handleKeyPress to avoid scoping issues on window.addeventlistener
-        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     /**
@@ -54,7 +52,9 @@ class Key extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('keydown',this.handleKeyPress);
+        window.addEventListener('keydown',(e) => {
+            this.handleKeyPress(e)
+        });
     }
 
     render() {
