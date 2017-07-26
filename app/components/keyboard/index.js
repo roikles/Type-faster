@@ -6,34 +6,6 @@ import Key from '../key';
 
 class Keyboard extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { keyCounter: 0 }
-    }
-
-    handleKeyPress(e) {
-        let expectedOrder = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-        let keyPressed = String.fromCharCode(e.keyCode);
-        if(keyPressed === expectedOrder[this.state.keyCounter]){
-            // Increment if the correct key is hit
-            this.setState({ keyCounter: this.state.keyCounter + 1 });
-        }
-    }
-
-    componentDidMount() {
-        window.addEventListener('keydown',(e) => { 
-            this.handleKeyPress(e) 
-        });
-    }
-
-    componentDidUpdate() {
-        if(this.state.keyCounter === 26){
-            console.log('Winner!!!!');
-
-        }
-    }
-
-
     render() {
         return (
             <section className="keyboard">

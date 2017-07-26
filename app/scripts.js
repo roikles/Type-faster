@@ -19,19 +19,37 @@ class App extends React.Component{
         this.state = {
             startBoxVisibility: 'show',
             ready: false,
-            start: false
+            start: false,
+            keyCounter: 0,
+            counterRunning: false
         };
+    }
+
+    countCorrectKeyPresses(e) {
+        let expectedOrder = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        let keyPressed = String.fromCharCode(e.keyCode);
+        if(keyPressed === expectedOrder[this.state.keyCounter]){
+            // Increment if the correct key is hit
+            this.setState({ keyCounter: this.state.keyCounter + 1 });
+        }
+    }
+
+    initializeGame(e) {
+        this.setState({ startBoxVisibility: 'hide' });
+        this.setState({ ready: true });
     }
 
     handleKeyPress(e){
         let keyPressed = e.which;
-        
-        // If the space bar is pressed
-        if(keyPressed === 32 ){
-            // Game Ready
-            this.setState({ startBoxVisibility: 'hide' });
-            this.setState({ ready: true });
+
+        if(keyPressed === 32 && this.state.ready === false){
+            this.initializeGame(e);
         }
+
+        if(this.state.ready === true){
+            this.countCorrectKeyPresses(e);
+        }
+
         // if the game is ready start when letter A is clicked
         if(this.state.ready === true && String.fromCharCode(e.keyCode) === 'A'){
             this.setState({ start: true });
@@ -43,6 +61,14 @@ class App extends React.Component{
             this.handleKeyPress(e) 
         });
     }
+
+    componentDidUpdate() {
+        if(this.state.keyCounter === 26){
+            console.log('Winner!!!!');
+            this.setState({ start: false });
+        }
+    }
+
     render(){
         return (
             <div>
