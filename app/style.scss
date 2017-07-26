@@ -1,0 +1,10 @@
+// Global rules
+@import "assets/scss/global/_reset.scss";
+@import "assets/scss/global/_html-body.scss";
+
+//tools
+@import "assets/scss/tools/_aspect-ratio.scss";
+
+// Components
+@import "components/keyboard/_index.scss";
+@import "components/key/_index.scss";
