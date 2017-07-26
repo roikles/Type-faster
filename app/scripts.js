@@ -17,19 +17,24 @@ class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            startBoxVisibility: 'show'
+            startBoxVisibility: 'show',
+            ready: false,
+            start: false
         };
     }
 
     handleKeyPress(e){
         let keyPressed = e.which;
-        // Ifthe space bar is pressed
+        
+        // If the space bar is pressed
         if(keyPressed === 32 ){
-            // Game start!!!
-            // -- start timer
-            // -- hide start box
-            // -- show keyboard
+            // Game Ready
             this.setState({ startBoxVisibility: 'hide' });
+            this.setState({ ready: true });
+        }
+        // if the game is ready start when letter A is clicked
+        if(this.state.ready === true && String.fromCharCode(e.keyCode) === 'A'){
+            this.setState({ start: true });
         }
     }
 
@@ -42,7 +47,7 @@ class App extends React.Component{
         return (
             <div>
                 <Start visibility={ this.state.startBoxVisibility }  />
-                <Timer />
+                <Timer start={ this.state.start } />
                 <Keyboard />
             </div>
         );

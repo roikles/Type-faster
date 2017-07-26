@@ -7,19 +7,26 @@ class Timer extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             hundredthseconds: 0,
             seconds: 0,
             minutes: 0
         };
     }
 
-    componentDidMount() {
+    startTimer(){
         return setInterval(
-            // Fat Arrow function shorthand
             () => this.clock(),
-            10 // 1 hundredthsecond (1/10 second)
+            10 // 1/10 second
         );
+    }
+
+    componentDidUpdate() {
+        if(this.props.start === true){
+            this.startTimer();
+        } else {
+            clearInterval(this.clock);
+        }
     }
 
     componentWillUnmount() {
