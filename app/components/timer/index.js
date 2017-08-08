@@ -14,23 +14,31 @@ class Timer extends React.Component {
         };
     }
 
-    startTimer(){
+    startTimer() {
         return setInterval(
             () => this.clock(),
             10 // 1/10 second
         );
     }
 
-    componentDidUpdate() {
-        if(this.props.start === true){
-            this.startTimer();
-        } else {
-            clearInterval(this.clock);
+    endTimer() {
+        clearInterval(this.timer);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.start !== this.props.start){
+            if(this.props.start === true){
+                this.timer = this.startTimer();
+                //console.log('int not cleared');
+            } else {
+                this.endTimer();
+            }    
         }
+        
     }
 
     componentWillUnmount() {
-        clearInterval(this.clock);
+        clearInterval(this.timer);
     }
 
     pad(n) {
@@ -62,13 +70,11 @@ class Timer extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>
-                    {this.pad(this.state.minutes)}:
-                    {this.pad(this.state.seconds)}:
-                    {this.pad(this.state.hundredthseconds)}
-                </h2>
-            </div>
+            <span>
+                {this.pad(this.state.minutes)}:
+                {this.pad(this.state.seconds)}:
+                {this.pad(this.state.hundredthseconds)}
+            </span>
         );
     }
 }
